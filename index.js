@@ -1,11 +1,11 @@
-// TODO: Include packages needed for this application
+// Include packages needed for this application
 import generateMarkdown from "./utils/generateMarkdown.js";
 import { licenses } from "./utils/generateMarkdown.js";
 import inquirer from "inquirer";
 import validator from "validator";
 import fs from "fs";
 
-// TODO: Create an array of questions for user input
+// Array of questions for user input
 const questions = [
     {
         type: "input",
@@ -59,6 +59,7 @@ const questions = [
     }
 ];
 
+// Converts the licenses array into a choices array for use by inquirer
 function convertLicensesToChoices() {
     let choices = [];
 
@@ -75,7 +76,7 @@ function convertLicensesToChoices() {
     return choices;
 }
 
-// TODO: Create a function to write README file
+// Write the file to the output folder, creating the path as needed
 function writeToFile(fileName, data) {
     if(!fs.existsSync('./output')) {
         fs.mkdir('output', err => { if (err) throw err; } );
@@ -84,8 +85,9 @@ function writeToFile(fileName, data) {
     fs.writeFile('./output/' + fileName, data, err => err ? console.log(err) : console.log("File successfully created!"));
 }
 
-// TODO: Create a function to initialize app
+// Main code
 function init() {
+    // Get the users responses and write them to the new file
     inquirer.prompt(questions).then((data) =>
     {
         const result = generateMarkdown(data);

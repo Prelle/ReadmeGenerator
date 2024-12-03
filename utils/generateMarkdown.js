@@ -1,5 +1,7 @@
 import validator from "validator";
 
+// Licenses badge and text info for generating the markdown
+// Exported to allow for inquirer to utilize the id and selector as choices
 export const licenses = [
   {id: 'apache', selector: 'Apache 2.0 License', niceText: 'the Apache 2.0 License', badge: '[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)]', link:'https://opensource.org/licenses/Apache-2.0'},
   {id: 'boost', selector: 'Boost Software License 1.0', niceText: 'the Boost Software License 1.0', badge: '[![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)]', link:'https://www.boost.org/LICENSE_1_0.txt'},
@@ -34,19 +36,19 @@ export const licenses = [
   {id: 'zlib', selector: 'Zlib', niceText: 'the zlib/libpng License', badge: '[![License: Zlib](https://img.shields.io/badge/License-Zlib-lightgrey.svg)]', link:'https://opensource.org/licenses/Zlib'}
 ]
 
-// TODO: Create a function that returns a license badge based on which license is passed in
+// Returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
   return license ? license.badge : '';  
 }
 
-// TODO: Create a function that returns the license link
+// Returns the license link from the provided license
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
   return license ? license.link : '';  
 }
 
-// TODO: Create a function that returns the license section of README
+// Returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
     const knownLicense = licenses.find(item => item.id == license);
@@ -58,10 +60,13 @@ function renderLicenseSection(license) {
     return `## License\n\nThis project is governed by ${knownLicense.niceText}. For more information, click or tap on the badge below.\n\n${renderLicenseBadge(knownLicense)}(${renderLicenseLink(knownLicense)})\n\n`;
 }
 
+// Returns the description section of the README
 function renderDescriptionSection(description) {
   return `${description}\n\n`;
 }
 
+// Returns the table of contents for the README
+// Only creates the optional sections if data is present
 function renderTableOfContents(data) {
   let toc = '## Table of Contents\n\n';
 
@@ -86,31 +91,37 @@ function renderTableOfContents(data) {
   return toc;
 }
 
+// Returns the titled segment if any text is provided, or an empty string if not
 function renderOptionalSection(section, text) {
   return validator.isEmpty(text) ? '' : `## ${section}\n\n${text}\n\n`;
 }
 
+// Returns the Installation section if provided
 function renderInstallationSection(installation) {
   return renderOptionalSection("Installation", installation);
 }
 
+// Returns the Usage section if provided
 function renderUsageSection(usage) {
   return renderOptionalSection("Usage", usage);
 }
 
+// Returns the Contributing if provided
 function renderContributingSection(contibuting) {
   return renderOptionalSection("Contributing", contibuting);
 }
 
+// Returns the Testing section if provided
 function renderTestingSection(testing) {
   return renderOptionalSection("Testing", testing);
 }
 
+// Creates text for the Questions section based on the provided information
 function renderQuestionsSection(username, email) {
   return `## Questions\n\nI can be reached with questions at https://www.github.com/${username} or via email at ${email}.\n\n`;
 }
 
-// TODO: Create a function to generate markdown for README
+// Generates all the markdown for README using the above functions
 function generateMarkdown(data) {
   return `# ${data.title}\n\n${renderDescriptionSection(data.description)}${renderTableOfContents(data)}${renderInstallationSection(data.installation)}${renderUsageSection(data.usage)}${renderContributingSection(data.contributing)}${renderTestingSection(data.testing)}${renderLicenseSection(data.license)}${renderQuestionsSection(data.gitHub, data.email)}#### This README.md file was generated with the ReadmeGenerator located at https://www.github.com/Prelle/ReadmeGenerator.`;
 }
