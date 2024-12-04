@@ -2,6 +2,8 @@
 
 A JavaScript application for generating a professional README.md file from user input.
 
+![Demo of application running in the console](media/demo.png)
+
 ## Table of Contents
 
 - [Installation](#installation)
