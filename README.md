@@ -11,7 +11,7 @@ A JavaScript application for generating a professional README.md file from user 
 
 ## Installation
 
-After cloning, run `npm i` in the root folder to install dependencies.
+After cloning, run `npm ci` in the root folder to install dependencies.
 
 ## Usage
 

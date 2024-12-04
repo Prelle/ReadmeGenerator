@@ -56,6 +56,12 @@ const questions = [
         name: "email",
         message: "What is your email address?",
         validate: result => validator.isEmail(result) ? true : "A valid email address is required"
+    },
+    {
+        type: "input",
+        name: "filename",
+        default: "README",
+        message: "What would you like the filename to be?"
     }
 ];
 
@@ -80,6 +86,17 @@ function convertLicensesToChoices() {
 function writeToFile(fileName, data) {
     if(!fs.existsSync('./output')) {
         fs.mkdir('output', err => { if (err) throw err; } );
+    } else if(fs.existsSync(`./output/${fileName}`)) {
+        inquirer.prompt([
+            {
+                type: "confirm",
+                name: "response",
+                default: false,
+                message: "File exists! Overwrite?"
+            }
+        ]).then(result => {
+
+        });
     }
 
     fs.writeFile('./output/' + fileName, data, err => err ? console.log(err) : console.log("File successfully created!"));
@@ -92,7 +109,9 @@ function init() {
     {
         const result = generateMarkdown(data);
 
-        writeToFile('README.md', result);
+        const filename = data.filename + '.md';
+
+        writeToFile(filename, result);
     })    
 }
 
