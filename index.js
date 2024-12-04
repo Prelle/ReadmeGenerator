@@ -83,6 +83,15 @@ function convertLicensesToChoices() {
         choices.push(choice);
     }
 
+    // Add the "No license" choice
+    const noChoice = {
+        name: '(No license)',
+        value: '',
+        short: '(No license)'
+    };
+
+    choices.push(noChoice);
+
     return choices;
 }
 

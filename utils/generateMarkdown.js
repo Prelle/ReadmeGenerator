@@ -69,26 +69,36 @@ function renderDescriptionSection(data) {
 // Only creates the optional sections if data is present
 function renderTableOfContents(data) {
   let toc = '## Table of Contents\n\n';
+  let sections = 1;
 
   if (!validator.isEmpty(data.installation)) {
     toc += '- [Installation](#installation)\n';
+    sections++;
   }
 
   if (!validator.isEmpty(data.usage)) {
     toc += '- [Usage](#usage)\n';
+    sections++;
   }
 
   if (!validator.isEmpty(data.contributing)) {
     toc += '- [Contributing](#contributing)\n';
+    sections++;
   }
 
   if (!validator.isEmpty(data.testing)) {
     toc += '- [Testing](#testing)\n';
+    sections++;
   }
 
-  toc += '- [License](#license)\n- [Questions](#questions)\n\n';
+  if (!validator.isEmpty(data.license)) {
+    toc += '- [License](#license)\n';
+    sections++;
+  }
 
-  return toc;
+  toc += '- [Questions](#questions)\n\n';
+
+  return sections >= 2 ? toc : '';
 }
 
 // Returns the titled segment if any text is provided, or an empty string if not
