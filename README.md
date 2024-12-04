@@ -32,4 +32,4 @@ I can be reached with questions at https://www.github.com/Prelle or via email at
 
 ## Demo
 
-https://github.com/Prelle/ReadmeGenerator/blob/main/media/demo.png
+https://github.com/Prelle/ReadmeGenerator/blob/main/media/Elayne%20Terry%20ReadmeGenerator%20demo.mp4
