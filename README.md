@@ -10,6 +10,7 @@ A JavaScript application for generating a professional README.md file from user 
 - [Usage](#usage)
 - [License](#license)
 - [Questions](#questions)
+- [Demo](#demo)
 
 ## Installation
 
@@ -28,3 +29,7 @@ This project is governed by the Mozilla Public License 2.0. For more information
 ## Questions
 
 I can be reached with questions at https://www.github.com/Prelle or via email at p.elayne.terry@gmail.com.
+
+## Demo
+
+https://github.com/Prelle/ReadmeGenerator/blob/main/media/demo.png
