@@ -4,6 +4,10 @@ import { licenses } from "./utils/generateMarkdown.js";
 import inquirer from "inquirer";
 import validator from "validator";
 import fs from "fs";
+import path from 'path';
+
+// Path to created md files
+const fileOutputPath = './output';
 
 // Array of questions for user input
 const questions = [
@@ -84,35 +88,30 @@ function convertLicensesToChoices() {
 
 // Write the file to the output folder, creating the path as needed
 function writeToFile(fileName, data) {
-    if(!fs.existsSync('./output')) {
-        fs.mkdir('output', err => { if (err) throw err; } );
-    } else if(fs.existsSync(`./output/${fileName}`)) {
-        inquirer.prompt([
-            {
-                type: "confirm",
-                name: "response",
-                default: false,
-                message: "File exists! Overwrite?"
-            }
-        ]).then(result => {
-
-        });
+    if(!fs.existsSync(fileOutputPath)) {
+        fs.mkdir(fileOutputPath, err => { if (err) throw err; } );
     }
+    
+    const filePath = path.join(fileOutputPath, fileName);
 
     fs.writeFile('./output/' + fileName, data, err => err ? console.log(err) : console.log("File successfully created!"));
 }
 
 // Main code
 function init() {
-    // Get the users responses and write them to the new file
+    // Get the user's responses and write them to the new file
     inquirer.prompt(questions).then((data) =>
     {
-        const result = generateMarkdown(data);
+        const result = generateMarkdown(data);        
 
-        const filename = data.filename + '.md';
+        let filename = data.filename;
+
+        if (validator.isEmpty(path.extname(filename))) {
+            filename += '.md';
+        }
 
         writeToFile(filename, result);
-    })    
+    });
 }
 
 // Function call to initialize app

@@ -50,8 +50,8 @@ function renderLicenseLink(license) {
 
 // Returns the license section of README
 // If there is no license, return an empty string
-function renderLicenseSection(license) {
-    const knownLicense = licenses.find(item => item.id == license);
+function renderLicenseSection(data) {
+    const knownLicense = licenses.find(item => item.id == data.license);
 
     if (!knownLicense) {
       return '';
@@ -61,8 +61,8 @@ function renderLicenseSection(license) {
 }
 
 // Returns the description section of the README
-function renderDescriptionSection(description) {
-  return `${description}\n\n`;
+function renderDescriptionSection(data) {
+  return `${data.description}\n\n`;
 }
 
 // Returns the table of contents for the README
@@ -97,33 +97,42 @@ function renderOptionalSection(section, text) {
 }
 
 // Returns the Installation section if provided
-function renderInstallationSection(installation) {
-  return renderOptionalSection("Installation", installation);
+function renderInstallationSection(data) {
+  return renderOptionalSection("Installation", data.installation);
 }
 
 // Returns the Usage section if provided
-function renderUsageSection(usage) {
-  return renderOptionalSection("Usage", usage);
+function renderUsageSection(data) {
+  return renderOptionalSection("Usage", data.usage);
 }
 
 // Returns the Contributing if provided
-function renderContributingSection(contibuting) {
-  return renderOptionalSection("Contributing", contibuting);
+function renderContributingSection(data) {
+  return renderOptionalSection("Contributing", data.contributing);
 }
 
 // Returns the Testing section if provided
-function renderTestingSection(testing) {
-  return renderOptionalSection("Testing", testing);
+function renderTestingSection(data) {
+  return renderOptionalSection("Testing", data.testing);
 }
 
 // Creates text for the Questions section based on the provided information
-function renderQuestionsSection(username, email) {
-  return `## Questions\n\nI can be reached with questions at https://www.github.com/${username} or via email at ${email}.\n\n`;
+function renderQuestionsSection(data) {
+  return `## Questions\n\nI can be reached with questions at https://www.github.com/${data.gitHub} or via email at ${data.email}.\n\n`;
 }
 
 // Generates all the markdown for README using the above functions
 function generateMarkdown(data) {
-  return `# ${data.title}\n\n${renderDescriptionSection(data.description)}${renderTableOfContents(data)}${renderInstallationSection(data.installation)}${renderUsageSection(data.usage)}${renderContributingSection(data.contributing)}${renderTestingSection(data.testing)}${renderLicenseSection(data.license)}${renderQuestionsSection(data.gitHub, data.email)}#### This README.md file was generated with the ReadmeGenerator located at https://www.github.com/Prelle/ReadmeGenerator.`;
+  return `# ${data.title}\n\n` +
+    renderDescriptionSection(data) +
+    renderTableOfContents(data) +
+    renderInstallationSection(data) +
+    renderUsageSection(data) +
+    renderContributingSection(data) +
+    renderTestingSection(data) +
+    renderLicenseSection(data) +
+    renderQuestionsSection(data) +
+    '#### This README.md file was generated with the ReadmeGenerator located at https://www.github.com/Prelle/ReadmeGenerator.';  
 }
 
 export default generateMarkdown;
